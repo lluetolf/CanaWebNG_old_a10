@@ -1,0 +1,10 @@
+<p>Dashboard!</p>
+<h3>Fields</h3>
+<div *ngFor="let field of fields" class="module ">
+    <pre>{{field | json}}</pre>
+</div>
+
+<h3>Payables</h3>
+<div *ngFor="let payable of payables" class="module ">
+    <pre>{{payable | json}}</pre>
+</div>
