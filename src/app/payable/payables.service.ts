@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Payable } from '../model/payable';
 import { tap, catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PayablesService {
-  private serviceURL = 'api/payables';
+  private serviceURL = environment.apiBaseUri + 'payable';
 
   constructor(
     private http: HttpClient) { }

@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-
+//import { environment } from '@environment';
+import { environment } from '../../environments/environment';
 import { Field } from '../model/field';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FieldsService {
-  private serviceURL = 'api/fields';
+  private serviceURL = environment.apiBaseUri + 'field';
 
   constructor(
     private http: HttpClient) { }
@@ -20,6 +21,7 @@ export class FieldsService {
 
   /* Get all Fields from the server */
   getFields(): Observable<Field[]> {
+    this.log("Fetching all fields.")
     return this.http.get<Field[]>(this.serviceURL)
       .pipe(
         tap(_ => this.log('fetched all fields')),
