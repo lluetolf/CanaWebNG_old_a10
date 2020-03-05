@@ -41,7 +41,7 @@ displayedColumns: string[] = ['id', 'transactionDate', 'category', 'subCategory'
   //   });
    }
 
-  openCreateDialog(payable: Payable): void {
+  openCreateDialog(): void {
     // const dialogRef = this.dialog.open(CreateFieldDialogComponent, {
     //   width: '600px'
     // });

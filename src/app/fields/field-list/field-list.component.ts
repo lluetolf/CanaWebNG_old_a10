@@ -45,7 +45,7 @@ export class FieldListComponent implements OnInit {
     });
   }
 
-  openCreateDialog(field: Field): void {
+  openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateFieldDialogComponent, {
       width: '600px'
     });
