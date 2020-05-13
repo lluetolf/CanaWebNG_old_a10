@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "canaweb-ui-app"
+  "defaultProject": "canaweb-ui-app",
+  "cli": {
+    "analytics": "bfa9db43-7fbe-45c4-ac87-2c440a58d680"
+  }
 }
