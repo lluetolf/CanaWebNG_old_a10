@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,13 +16,16 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditFieldDialogComponent } from './fields/edit-field-dialog/edit-field-dialog.component';
 import { CreateFieldDialogComponent } from './fields/create-field-dialog/create-field-dialog.component';
 import { PayablesModule } from './payable/payables.module';
+import { LoginComponent } from './login/login.component';
+import { JwtInterceptor, ErrorInterceptor } from './helpers';
 
 @NgModule({
   declarations: [
     AppComponent,
     VersionPageComponent,
     PageNotFoundComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent
   ],
   imports: [
     MaterialModule,
@@ -30,6 +33,7 @@ import { PayablesModule } from './payable/payables.module';
     BrowserModule,
     FieldsModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
 
@@ -42,7 +46,10 @@ import { PayablesModule } from './payable/payables.module';
 
     PayablesModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   entryComponents: [EditFieldDialogComponent, CreateFieldDialogComponent],
   bootstrap: [AppComponent]
 })

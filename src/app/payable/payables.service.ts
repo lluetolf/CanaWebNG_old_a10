@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Payable } from '../model/payable';
+import { Payable } from '../models/payable';
 import { tap, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
