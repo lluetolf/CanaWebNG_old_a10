@@ -35,7 +35,7 @@ export class FieldsService {
       );
   }
 
-  /** GET field by name. Return `undefined` when id not found */
+  /** GET field by name. Return `undefined` when name not found */
   getFieldByName<Data>(name: string): Observable<Field> {
     const url = `${this.serviceURL}/${name}`;
 
@@ -57,7 +57,7 @@ export class FieldsService {
   updateField(field: Field): Observable<any> {
 
     return this.http.patch(this.serviceURL, field, this.httpOptions).pipe(
-      tap(_ => this.log(`updated field id=${field.id}`)),
+      tap(_ => this.log(`updated field name=${field.name}`)),
       catchError(this.handleError<any>('updateField'))
     );
   }
@@ -68,7 +68,7 @@ export class FieldsService {
     // hack, we are only interested in the date, so setting it to 12 to avoid timezone problems
     field.acquisitionDate.setHours(12) 
     return this.http.post<Field>(this.serviceURL, field, this.httpOptions).pipe(
-      tap((newField: Field) => this.log(`added field w/ id=${newField.name}`)),
+      tap((newField: Field) => this.log(`added field w/ name=${newField.name}`)),
       catchError(this.handleError<Field>('addField'))
     );
   }
