@@ -68,18 +68,17 @@ export class FieldsService {
     // hack, we are only interested in the date, so setting it to 12 to avoid timezone problems
     field.acquisitionDate.setHours(12) 
     return this.http.post<Field>(this.serviceURL, field, this.httpOptions).pipe(
-      tap((newField: Field) => this.log(`added field w/ id=${newField.id}`)),
+      tap((newField: Field) => this.log(`added field w/ id=${newField.name}`)),
       catchError(this.handleError<Field>('addField'))
     );
   }
 
   /** DELETE: delete the field from the server */
-  deleteField(field: Field | number): Observable<Field> {
-    const id = typeof field === 'number' ? field : field.id;
-    const url = `${this.serviceURL}/${id}`;
+  deleteField(fieldName: string): Observable<Field> {
+    const url = `${this.serviceURL}/${fieldName}`;
 
     return this.http.delete<Field>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`deleted field id=${id}`)),
+      tap(_ => this.log(`deleted field name=${fieldName}`)),
       catchError(this.handleError<Field>('deleteField'))
     );
   }
