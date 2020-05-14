@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core'
+import { Router, ActivatedRoute } from '@angular/router'
+import { first } from 'rxjs/operators'
+import { MaterialModule } from '../shared/material.module'
 
-import { AuthenticationService } from '@app/services';
+import { AuthenticationService } from '@app/services'
 
 @Component({
   selector: 'app-login',
@@ -11,47 +11,27 @@ import { AuthenticationService } from '@app/services';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  loading = false;
-  submitted = false;
-  returnUrl: string;
-  error = '';
+    error = ''
+    username: string
+    password: string
+    returnUrl: string
+    loading = false;
 
-  constructor(
-      private formBuilder: FormBuilder,
-      private route: ActivatedRoute,
-      private router: Router,
-      private authenticationService: AuthenticationService
-  ) { 
-      // redirect to home if already logged in
-      if (this.authenticationService.currentUserValue) { 
-          this.router.navigate(['/']);
-      }
-  }
-
-  ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-        username: ['', Validators.required],
-        password: ['', Validators.required]
-    });
-
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-  }
-
-  // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
-
-  onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-        return;
+    constructor(private router: Router, 
+        private route: ActivatedRoute,
+        private authenticationService: AuthenticationService  ) { 
+        if (this.authenticationService.currentUserValue) { 
+            this.router.navigate(['/']);
+        }
     }
 
-    this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    ngOnInit() {
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
+
+    login() {
+
+    this.authenticationService.login(this.username, this.password)
         .pipe(first())
         .subscribe(
             data => {

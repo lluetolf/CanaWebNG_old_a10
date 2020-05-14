@@ -9,14 +9,26 @@ import { PayablesService } from '../payables.service';
   styleUrls: ['./payable-list.component.scss']
 })
 export class PayableListComponent implements OnInit {
-  payables = new MatTableDataSource<Payable>();
+  payables = new MatTableDataSource<Payable>()
+  selectedDay = new Date()
 
-displayedColumns: string[] = ['id', 'transactionDate', 'category', 'subCategory', 'quantity', 'pricePerUnit', 'actions'];
+displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldName', 'actions'];
 
   constructor(private service: PayablesService) { }
 
   ngOnInit() {
     this.getPayables();
+  }
+
+  public changeSelectedDate(): void {
+    console.log(this.selectedDay)
+    this.service.getPayablesOfWeek(this.selectedDay)
+    .subscribe(payables => {
+      this.payables.data = payables;
+      payables.forEach(element => {
+        console.log(JSON.stringify(element));
+      });
+    });
   }
 
   getPayables(): void {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpBackend } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 //import { environment } from '@environment';
@@ -24,57 +24,58 @@ export class FieldsService {
     this.log("Fetching all fields.")
     return this.http.get<Field[]>(this.serviceURL)
       .pipe(
+        map(fields => {
+          fields.forEach(f => {
+            f.acquisitionDate = new Date(f.acquisitionDate + 'Z');
+            f.lastUpdated = new Date(f.lastUpdated + 'Z');
+          });
+          return fields}),
         tap(_ => this.log('fetched all fields')),
         catchError(this.handleError<Field[]>('getFields', []))
       );
   }
 
-  /** GET field by id. Return `undefined` when id not found */
-  getHeroNo404<Data>(id: number): Observable<Field> {
-    const url = `${this.serviceURL}/?id=${id}`;
+  /** GET field by name. Return `undefined` when id not found */
+  getFieldByName<Data>(name: string): Observable<Field> {
+    const url = `${this.serviceURL}/${name}`;
 
-    return this.http.get<Field[]>(url)
+    return this.http.get<Field>(url)
       .pipe(
-        map(fields => fields[0]), // returns a {0|1} element array
+        map(f => {
+            f.acquisitionDate = new Date(f.acquisitionDate + 'Z');
+            f.lastUpdated = new Date(f.lastUpdated + 'Z');
+            return f}),
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
-          this.log(`${outcome} field id=${id}`);
+          this.log(`${outcome} field name=${name}`);
         }),
-        catchError(this.handleError<Field>(`getHero id=${id}`))
+        catchError(this.handleError<Field>(`getField name=${name}`))
       );
   }
 
-  /** GET field by id. Will 404 if id not found */
-  getField(id: number): Observable<Field> {
-    const url = `${this.serviceURL}/${id}`;
-
-    return this.http.get<Field>(url).pipe(
-      tap(_ => this.log(`fetched field id=${id}`)),
-      catchError(this.handleError<Field>(`getField id=${id}`))
-    );
-  }
-
-
-  /** PUT: update the hero on the server */
+  /** PUT: update the field on the server */
   updateField(field: Field): Observable<any> {
-    return this.http.put(this.serviceURL, field, this.httpOptions).pipe(
+
+    return this.http.patch(this.serviceURL, field, this.httpOptions).pipe(
       tap(_ => this.log(`updated field id=${field.id}`)),
       catchError(this.handleError<any>('updateField'))
     );
   }
 
 
-  /** POST: add a new hero to the server */
-  addField(hero: Field): Observable<Field> {
-    return this.http.post<Field>(this.serviceURL, hero, this.httpOptions).pipe(
+  /** POST: add a new field to the server */
+  addField(field: Field): Observable<Field> {
+    // hack, we are only interested in the date, so setting it to 12 to avoid timezone problems
+    field.acquisitionDate.setHours(12) 
+    return this.http.post<Field>(this.serviceURL, field, this.httpOptions).pipe(
       tap((newField: Field) => this.log(`added field w/ id=${newField.id}`)),
       catchError(this.handleError<Field>('addField'))
     );
   }
 
-  /** DELETE: delete the hero from the server */
-  deleteField(hero: Field | number): Observable<Field> {
-    const id = typeof hero === 'number' ? hero : hero.id;
+  /** DELETE: delete the field from the server */
+  deleteField(field: Field | number): Observable<Field> {
+    const id = typeof field === 'number' ? field : field.id;
     const url = `${this.serviceURL}/${id}`;
 
     return this.http.delete<Field>(url, this.httpOptions).pipe(

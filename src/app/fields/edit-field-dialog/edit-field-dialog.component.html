@@ -2,14 +2,10 @@
 
 <div mat-dialog-content>
     <div class="example-container">
-        <p>{{field.id}}</p>
+        <p>{{field.name}}</p>
 
         <mat-form-field>
-            <input matInput placeholder="Ingenio Id" [(ngModel)]="field.ingenioId" required>
-        </mat-form-field>
-
-        <mat-form-field>
-            <input matInput placeholder="Name" [(ngModel)]="field.name" required>
+            <input matInput placeholder="Ingenio Id" [(ngModel)]="field.ingenioId"  type="number" required>
         </mat-form-field>
 
         <mat-form-field>
@@ -17,16 +13,16 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="Size" [(ngModel)]="field.size">
+            <input matInput placeholder="Size" [(ngModel)]="field.size"  type="number">
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="Cultivated" [(ngModel)]="field.cultivatedArea">
+            <input matInput placeholder="Cultivated" [(ngModel)]="field.cultivatedArea" type="number">
         </mat-form-field>
 
         <mat-form-field>
             <input matInput [matDatepicker]="picker" placeholder="Acquisition date" 
-                [(ngModel)]="acquisitionDateField">
+                [(ngModel)]="field.acquisitionDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>

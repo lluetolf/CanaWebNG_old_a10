@@ -15,7 +15,6 @@ import { parse } from 'date-fns';
 export class EditFieldDialogComponent implements OnInit {
   readonly dateFormat: string = 'dd.MM.yyyy';
   field: Field;
-  acquisitionDateField: Date;
 
   constructor(
     public dialogRef: MatDialogRef<EditFieldDialogComponent>,
@@ -24,32 +23,17 @@ export class EditFieldDialogComponent implements OnInit {
 
   ngOnInit() {
     console.log('Sent to Dialog: ', this.data);
-    this.field = Object.assign({}, this.data);
-    const ad = this.field.acquisitionDate;
-    this.acquisitionDateField = parse(ad, this.dateFormat, new Date());
-  }
-
-  pickAcquisitionDate(event: any) {
-    const data = event;
-    const formattedDate = data.getDate() + '-' + (data.getMonth() + 1) + '-' + data.getFullYear();
-    this.field.acquisitionDate = formattedDate;
-    console.log('Reformated to: ' + formattedDate);
+    this.field = this.data
+    Object.keys(this.field).forEach(key =>
+      console.log(key + " - " + this.field[key] + " - " + typeof this.field[key])
+    );
   }
 
   save() {
-    // Transform Date to String
-    const ad = this.acquisitionDateField;
-    const formattedDate = (ad.getDate()) + '.' + (ad.getMonth() + 1) + '.' + ad.getFullYear();
-    this.field.acquisitionDate = formattedDate;
-
+    Object.keys(this.field).forEach(key =>
+      console.log(key + " - " + this.field[key] + " - " + typeof this.field[key])
+    );
     this.fieldService.updateField(this.field).subscribe(obs => {
-      this.data.ingenioId = this.field.ingenioId;
-      this.data.acquisitionDate = this.field.acquisitionDate;
-      this.data.name = this.field.name;
-      this.data.owner = this.field.owner;
-      this.data.size = this.field.size;
-      this.data.cultivatedArea = this.field.cultivatedArea;
-
       this.dialogRef.close();
     });
   }

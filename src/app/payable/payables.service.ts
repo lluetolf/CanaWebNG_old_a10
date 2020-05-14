@@ -47,4 +47,28 @@ export class PayablesService {
         catchError(this.handleError<Payable[]>('getPayables', []))
       );
   }
+
+  getPayablesOfWeek(day: Date): Observable<Payable[]> {
+    const url = `${this.serviceURL}/${this.getMonday(day).toISOString()}/${this.getSunday(day).toISOString()}` 
+    return this.http.get<Payable[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched all payables for week')),
+        catchError(this.handleError<Payable[]>('getPayablesOfWeek', []))
+      );
+  }
+
+  private getMonday(d: Date) {
+      var day = d.getDay() || 7
+      if(day !== 1)
+        d.setHours(-24 * (day - 1) + 12) //+12 against TZ issues
+      return d 
+  }
+
+  private getSunday(d: Date) {
+    var day = d.getDay() || 7
+    if(day !== 7)
+      d.setHours(24 * (7-day) + 12) //+12 against TZ issues
+    return d 
+}
+
 }

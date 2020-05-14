@@ -12,9 +12,7 @@ import { FieldsService } from '../fields.service';
   styleUrls: ['./create-field-dialog.component.scss']
 })
 export class CreateFieldDialogComponent implements OnInit {
-  readonly dateFormat: string = 'dd.MM.yyyy';
   field: Field;
-  acquisitionDateField: Date;
 
   constructor(
     public dialogRef: MatDialogRef<CreateFieldDialogComponent>,
@@ -26,15 +24,11 @@ export class CreateFieldDialogComponent implements OnInit {
   }
 
   save() {
-    // Transform Date to String
-    const ad = this.acquisitionDateField;
-    const formattedDate = (ad.getDate()) + '.' + (ad.getMonth() + 1) + '.' + ad.getFullYear();
-    this.field.acquisitionDate = formattedDate;
-
+    this.field.lastUpdated = new Date()
     this.fieldService.addField(this.field).subscribe(field => {
-      console.log('Create:' + field);
+      console.log('Create:' + field)
 
-      this.dialogRef.close();
+      this.dialogRef.close()
     });
   }
 
