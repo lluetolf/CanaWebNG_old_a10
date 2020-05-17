@@ -11,13 +11,14 @@ import { PayablesService } from '../payables.service';
 export class PayableListComponent implements OnInit {
   payables = new MatTableDataSource<Payable>()
   selectedDay = new Date()
+  daysOfWeek = []
 
 displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldName', 'actions'];
 
   constructor(private service: PayablesService) { }
 
   ngOnInit() {
-    this.getPayables();
+    this.changeSelectedDate()
   }
 
   public changeSelectedDate(): void {
@@ -40,6 +41,22 @@ displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quanti
           });
         });
   }
+
+  public getMonday() {
+    var d = this.selectedDay
+    var day = d.getDay() || 7
+    if(day !== 1)
+      d.setHours(-24 * (day - 1) + 12) //+12 against TZ issues
+    return d 
+}
+
+public getSunday() {
+  var d = this.selectedDay
+  var day = d.getDay() || 7
+  if(day !== 7)
+    d.setHours(24 * (7-day) + 12) //+12 against TZ issues
+  return d 
+}
 
   openEditDialog(payable: Payable): void {
   //   const dialogRef = this.dialog.open(EditFieldDialogComponent, {

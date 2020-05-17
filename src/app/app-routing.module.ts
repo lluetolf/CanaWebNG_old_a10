@@ -9,11 +9,12 @@ import { AuthGuard } from './helpers';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'payableList', component: PayableListComponent, canActivate: [AuthGuard] },
   { path: 'receivableList', component: FieldListComponent, canActivate: [AuthGuard] },
+  { path: 'fieldList', component: FieldListComponent, canActivate: [AuthGuard] },
   { path: 'contact', component: FieldListComponent },
   { path: 'version', component: VersionPageComponent }
 

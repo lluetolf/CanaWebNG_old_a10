@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private authenticationService: AuthenticationService  ) { 
         if (this.authenticationService.currentUserValue) { 
-            this.router.navigate(['/']);
+            this.router.navigate(['/dashboard']);
         }
     }
 
@@ -30,17 +30,19 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-
-    this.authenticationService.login(this.username, this.password)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-                this.error = error;
-                this.loading = false;
-            });
-  }
+        this.authenticationService.login(this.username, this.password)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    if(this.returnUrl === null || this.returnUrl === '/')
+                        this.router.navigate(['/dashboard']);
+                    else
+                        this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    this.error = error;
+                    this.loading = false;
+                });
+    }
 }
 

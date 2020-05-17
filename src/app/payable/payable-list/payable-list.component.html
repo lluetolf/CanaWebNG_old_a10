@@ -6,8 +6,90 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+    <div>
+        <mat-label>Display from {{getMonday() | date: 'dd MMM yyy'}} to {{getSunday() | date: 'dd MMM yyy'}}. </mat-label>
+    </div>
 </div>
 <div class="container">
+    <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Monday
+            </mat-panel-title>
+            <mat-panel-description>
+              5 entries
+            </mat-panel-description>
+          </mat-expansion-panel-header> 
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Tuesday
+              </mat-panel-title>
+              <mat-panel-description>
+                5 entries
+              </mat-panel-description>
+            </mat-expansion-panel-header> 
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Wednesday
+              </mat-panel-title>
+              <mat-panel-description>
+                5 entries
+              </mat-panel-description>
+            </mat-expansion-panel-header> 
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Thursday
+              </mat-panel-title>
+              <mat-panel-description>
+                5 entries
+              </mat-panel-description>
+            </mat-expansion-panel-header> 
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Friday
+              </mat-panel-title>
+              <mat-panel-description>
+                5 entries
+              </mat-panel-description>
+            </mat-expansion-panel-header> 
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Saturday
+              </mat-panel-title>
+              <mat-panel-description>
+                5 entries
+              </mat-panel-description>
+            </mat-expansion-panel-header> 
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Sunday
+              </mat-panel-title>
+              <mat-panel-description>
+                5 entries
+              </mat-panel-description>
+            </mat-expansion-panel-header> 
+          </mat-expansion-panel>
+      </mat-accordion>
+      <!--
     <table mat-table [dataSource]="payables" class="mat-elevation-z8">
         <ng-container matColumnDef="category">
             <th mat-header-cell *matHeaderCellDef> Category </th>
@@ -67,5 +149,5 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
     </table>
-
+-->
 </div>
