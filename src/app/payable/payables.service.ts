@@ -38,12 +38,21 @@ export class PayablesService {
     };
   }
 
-
   /* Get all Fields from the server */
   getPayables(): Observable<Payable[]> {
     return this.http.get<Payable[]>(this.serviceURL)
       .pipe(
         tap(_ => this.log('fetched all payables')),
+        catchError(this.handleError<Payable[]>('getPayables', []))
+      );
+  }
+
+  /* Get all Fields from the server */
+  getLatestPayables(): Observable<Payable[]> {
+    const url = this.serviceURL + "/latest/5"
+    return this.http.get<Payable[]>(url)
+      .pipe(
+        tap(_ => this.log('fetched latest 5 payables')),
         catchError(this.handleError<Payable[]>('getPayables', []))
       );
   }
