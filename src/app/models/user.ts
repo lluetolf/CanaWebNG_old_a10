@@ -1,5 +1,9 @@
 export class User {
-    email: string;
-    password: string;
-    token?: string;
+    username: string
+    password: string
+    token?: string
+
+    public constructor(init?:Partial<User>) {
+        Object.assign(this, init);
+    }
 }
