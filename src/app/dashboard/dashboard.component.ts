@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Field } from '@app/models'
-import { FieldsService } from '../fields/fields.service';
-import { PayablesService } from '../payable/payables.service';
-import { Payable } from '../models/payable';
+
+import { PayablesService } from '@app/services'
+import { Payable } from '@app/models';
 
 @Component({
   selector: 'app-dashboard',

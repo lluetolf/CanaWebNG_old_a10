@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
 
 import { AuthenticationService } from '@app/services'
 import { Router, ActivatedRoute } from '@angular/router';

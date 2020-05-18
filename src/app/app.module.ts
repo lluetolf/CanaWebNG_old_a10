@@ -17,7 +17,8 @@ import { EditFieldDialogComponent } from './fields/edit-field-dialog/edit-field-
 import { CreateFieldDialogComponent } from './fields/create-field-dialog/create-field-dialog.component';
 import { PayablesModule } from './payable/payables.module';
 import { LoginComponent } from './login/login.component';
-import { JwtInterceptor, ErrorInterceptor } from './helpers';
+
+import { JwtInterceptor, ErrorInterceptor } from '@app/helpers';
 
 @NgModule({
   declarations: [

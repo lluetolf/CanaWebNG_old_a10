@@ -20,7 +20,7 @@
     ],
     "paths": {
       "@app/*": ["src/app/*"],
-      "@lukas/*": ["src/app/*"],
+      "@services/*": ["src/app/services/*"],
       "@environments/*": ["src/environments/*"]
     }
   },

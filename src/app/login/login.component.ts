@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
 import { first } from 'rxjs/operators'
-import { MaterialModule } from '../shared/material.module'
 
 import { AuthenticationService } from '@app/services'
 

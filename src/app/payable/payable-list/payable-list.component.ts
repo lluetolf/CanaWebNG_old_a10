@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+
 import { Payable } from '@app/models';
-import { PayablesService } from '../payables.service';
+import { PayablesService } from '@app/services';
 
 @Component({
   selector: 'app-payable-list',
