@@ -30,4 +30,27 @@ export class PayableListItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openEditDialog(payable: Payable): void {
+    //   const dialogRef = this.dialog.open(EditFieldDialogComponent, {
+    //     width: '600px',
+    //     data: field
+    //   });
+  
+    //   dialogRef.afterClosed().subscribe(result => {
+    //     console.log('The dialog was closed');
+  
+    //   });
+     }
+  
+    openCreateDialog(): void {
+      // const dialogRef = this.dialog.open(CreateFieldDialogComponent, {
+      //   width: '600px'
+      // });
+  
+      // dialogRef.afterClosed().subscribe(result => {
+      //   this.getFields();
+      //   console.log('The dialog was closed');
+      // });
+    }
+
 }
