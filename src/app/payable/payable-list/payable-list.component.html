@@ -1,153 +1,29 @@
-<h1>PayablesList!</h1>
 <div class="container">
+      <button mat-flat-button color="primary" aria-label="navigate_before" (click)="previousWeek()">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+
     <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Week" 
-            [(ngModel)]="selectedDay" (dateChange)="changeSelectedDate()">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+      <input #pickerInput matInput [matDatepicker]="picker" placeholder="Week" [(ngModel)]="selectedDay"
+        (dateChange)="changeSelectedDate()">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <div>
-        <mat-label>Display from {{getMonday() | date: 'dd MMM yyy'}} to {{getSunday() | date: 'dd MMM yyy'}}. </mat-label>
-    </div>
+
+      <button mat-flat-button color="primary" aria-label="navigate_next" (click)="nextWeek()">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+  <div>
+    <mat-label>Display from {{getMonday() | date: 'dd MMM yyy'}} to {{getSunday() | date: 'dd MMM yyy'}}. </mat-label>
+  </div>
 </div>
+
+
 <div class="container">
-    <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Monday
-            </mat-panel-title>
-            <mat-panel-description>
-              5 entries
-            </mat-panel-description>
-          </mat-expansion-panel-header> 
-        </mat-expansion-panel>
-
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Tuesday
-              </mat-panel-title>
-              <mat-panel-description>
-                5 entries
-              </mat-panel-description>
-            </mat-expansion-panel-header> 
-          </mat-expansion-panel>
-
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Wednesday
-              </mat-panel-title>
-              <mat-panel-description>
-                5 entries
-              </mat-panel-description>
-            </mat-expansion-panel-header> 
-          </mat-expansion-panel>
-
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Thursday
-              </mat-panel-title>
-              <mat-panel-description>
-                5 entries
-              </mat-panel-description>
-            </mat-expansion-panel-header> 
-          </mat-expansion-panel>
-
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Friday
-              </mat-panel-title>
-              <mat-panel-description>
-                5 entries
-              </mat-panel-description>
-            </mat-expansion-panel-header> 
-          </mat-expansion-panel>
-
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Saturday
-              </mat-panel-title>
-              <mat-panel-description>
-                5 entries
-              </mat-panel-description>
-            </mat-expansion-panel-header> 
-          </mat-expansion-panel>
-
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Sunday
-              </mat-panel-title>
-              <mat-panel-description>
-                5 entries
-              </mat-panel-description>
-            </mat-expansion-panel-header> 
-          </mat-expansion-panel>
-      </mat-accordion>
-      <!--
-    <table mat-table [dataSource]="payables" class="mat-elevation-z8">
-        <ng-container matColumnDef="category">
-            <th mat-header-cell *matHeaderCellDef> Category </th>
-            <td mat-cell *matCellDef="let element"> {{element.category}} </td>
-            <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
-    
-        <ng-container matColumnDef="subCategory">
-            <th mat-header-cell *matHeaderCellDef> SubCategory </th>
-            <td mat-cell *matCellDef="let element"> {{element.subCategory}} </td>
-            <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
-
-        <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef> Quantity </th>
-            <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
-            <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
-
-        <ng-container matColumnDef="pricePerUnit">
-            <th mat-header-cell *matHeaderCellDef> PPU </th>
-            <td mat-cell *matCellDef="let element"> {{element.pricePerUnit}} </td>
-            <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
-        
-        <ng-container matColumnDef="transactionDate">
-            <th mat-header-cell *matHeaderCellDef> Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.transactionDate | date:'d MMMM y' }} </td>
-            <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
-
-        <ng-container matColumnDef="fieldName">
-            <th mat-header-cell *matHeaderCellDef> Field </th>
-            <td mat-cell *matCellDef="let element"> {{element.fieldName}} </td>
-            <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
-        
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>  </th>
-            <td mat-cell *matCellDef="let element"> 
-                <div class="buttoncontainer">
-                    <button mat-mini-fab aria-label="Edit" (click)="openEditDialog(element)">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                </div>
-            </td>
-            <td mat-footer-cell *matFooterCellDef>
-                <div class="buttoncontainer">
-                    <button mat-flat-button color="primary" aria-label="add" (click)="openCreateDialog()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </div>
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-    </table>
--->
+  <mat-accordion class="example-headers-align">
+    <app-payable-list-item *ngFor="let item of daysOfWeek" 
+    [day]="item.day" 
+    [payables]="item.entries">
+    </app-payable-list-item>
+  </mat-accordion>
 </div>

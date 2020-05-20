@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
 
 
 import { environment } from '@environments/environment';
@@ -22,7 +22,7 @@ export class PayablesService {
 
 
   private log(message: string) {
-    console.log(`FieldsService: ${message}`);
+    console.log(`PayablesService: ${message}`);
   }
 
 
@@ -63,19 +63,29 @@ export class PayablesService {
     const url = `${this.serviceURL}/${this.getMonday(day).toISOString()}/${this.getSunday(day).toISOString()}` 
     return this.http.get<Payable[]>(url)
       .pipe(
+        map(data => {
+          const payables: Payable[] = [];
+          return data.map(item => {
+            item.transactionDate = new Date(item.transactionDate)
+            item.lastUpdated = new Date(item.lastUpdated)
+            return new Payable(item)
+          })
+        }),
         tap(_ => this.log('fetched all payables for week')),
         catchError(this.handleError<Payable[]>('getPayablesOfWeek', []))
       );
   }
 
-  private getMonday(d: Date) {
+  private getMonday(date: Date) {
+      var d = new Date(date)
       var day = d.getDay() || 7
       if(day !== 1)
         d.setHours(-24 * (day - 1) + 12) //+12 against TZ issues
       return d 
   }
 
-  private getSunday(d: Date) {
+  private getSunday(date: Date) {
+    var d = new Date(date)
     var day = d.getDay() || 7
     if(day !== 7)
       d.setHours(24 * (7-day) + 12) //+12 against TZ issues

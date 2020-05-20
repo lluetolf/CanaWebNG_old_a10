@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { Payable } from '@app/models';
 import { PayablesService } from '@app/services';
+import { range } from 'rxjs';
 
 @Component({
   selector: 'app-payable-list',
@@ -10,9 +11,9 @@ import { PayablesService } from '@app/services';
   styleUrls: ['./payable-list.component.scss']
 })
 export class PayableListComponent implements OnInit {
-  payables = new MatTableDataSource<Payable>()
+  rawPayables: Payable[] = []
   selectedDay = new Date()
-  daysOfWeek = []
+  daysOfWeek: Date[]
 
 displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldName', 'actions'];
 
@@ -22,29 +23,50 @@ displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quanti
     this.changeSelectedDate()
   }
 
+  public getRawPayables(day: Date) {
+    var result = this.rawPayables.filter(
+      p => p.transactionDate.getDate() === day.getDate())
+    console.log(`Get payables for: ${day}, got: ${result.length}`)
+    return result
+  }
+
+  public nextWeek(): void {
+    var day = new Date(this.selectedDay)
+    day.setDate(day.getDate() + 7)
+    this.selectedDay = day
+    this.changeSelectedDate()
+  }
+
+  public previousWeek(): void {
+    var day = new Date(this.selectedDay)
+    day.setDate(day.getDate() - 7)
+    this.selectedDay = day
+    this.changeSelectedDate()
+  }
+
   public changeSelectedDate(): void {
     console.log(this.selectedDay)
     this.service.getPayablesOfWeek(this.selectedDay)
     .subscribe(payables => {
-      this.payables.data = payables;
-      payables.forEach(element => {
-        console.log(JSON.stringify(element));
-      });
+      this.rawPayables = payables;
+      console.log(`Fetched payables: ${payables.length}`)
+
+      let day = this.getMonday()
+      var tmp = []
+      for (let i = 0; i < 7; i++) {
+        day = new Date(day.getFullYear(), day.getMonth(), day.getDate())
+        tmp.push( { 
+          'day': day,
+          'entries': this.getRawPayables(day)
+         })
+        day.setDate(day.getDate() + 1)
+      }
+      this.daysOfWeek = tmp
     });
   }
 
-  getPayables(): void {
-      this.service.getPayables()
-        .subscribe(payables => {
-          this.payables.data = payables;
-          payables.forEach(element => {
-            console.log(JSON.stringify(element));
-          });
-        });
-  }
-
   public getMonday() {
-    var d = this.selectedDay
+    var d = new Date(this.selectedDay)
     var day = d.getDay() || 7
     if(day !== 1)
       d.setHours(-24 * (day - 1) + 12) //+12 against TZ issues
@@ -52,7 +74,7 @@ displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quanti
 }
 
 public getSunday() {
-  var d = this.selectedDay
+  var d = new Date(this.selectedDay)
   var day = d.getDay() || 7
   if(day !== 7)
     d.setHours(24 * (7-day) + 12) //+12 against TZ issues

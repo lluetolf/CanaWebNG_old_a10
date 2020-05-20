@@ -6,7 +6,7 @@ export class Payable {
     public pricePerUnit: number
     public quantity: number
     public comment: string
-    public transactionDate: string
+    public transactionDate: Date
     public lastUpdated: Date
     public _id: string
 
