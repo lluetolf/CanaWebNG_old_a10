@@ -1,7 +1,7 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title>
-            {{ day | date:short }}
+            {{ day | date:'EEEE' }}
         </mat-panel-title>
         <mat-panel-description>
             {{ payables.length }}
@@ -34,13 +34,13 @@
         
         <ng-container matColumnDef="transactionDate">
             <th mat-header-cell *matHeaderCellDef> Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.transactionDate | date:'d MMMM y' }} </td>
+            <td mat-cell *matCellDef="let element"> {{element.transactionDate | date:'dd MMMM yyyy' }} </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
-        <ng-container matColumnDef="fieldName">
+        <ng-container matColumnDef="fieldId">
             <th mat-header-cell *matHeaderCellDef> Field </th>
-            <td mat-cell *matCellDef="let element"> {{element.fieldName}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.fieldId}} </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
         

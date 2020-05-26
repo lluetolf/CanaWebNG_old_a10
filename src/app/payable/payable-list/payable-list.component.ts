@@ -13,7 +13,7 @@ export class PayableListComponent implements OnInit {
   selectedDay = new Date()
   daysOfWeek: Date[]
 
-  displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldName', 'actions'];
+  displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldId', 'actions'];
 
   constructor(private service: PayablesService) { }
 
@@ -52,13 +52,13 @@ export class PayableListComponent implements OnInit {
         let day = this.getMonday()
         var tmp = []
         for (let i = 0; i < 7; i++) {
-          day = new Date(day.getFullYear(), day.getMonth(), day.getDate())
           tmp.push({
             'day': day,
             'entries': this.getRawPayables(day)
           })
+          day = new Date(day.getFullYear(), day.getMonth(), day.getDate())
           day.setDate(day.getDate() + 1)
-        }
+        } 
         this.daysOfWeek = tmp
       });
   }

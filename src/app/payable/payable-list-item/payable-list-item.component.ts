@@ -12,7 +12,7 @@ export class PayableListItemComponent implements OnInit {
   @Input() day: Date
   public _payables: Payable[] = []
   public payableTable = new MatTableDataSource<Payable>();
-  displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldName', 'actions'];
+  displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldId', 'actions'];
 
   @Input('payables')
   set payables(value: Payable[]) {

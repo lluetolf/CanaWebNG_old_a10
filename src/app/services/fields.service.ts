@@ -74,11 +74,11 @@ export class FieldsService {
   }
 
   /** DELETE: delete the field from the server */
-  deleteField(fieldName: string): Observable<Field> {
-    const url = `${this.serviceURL}/${fieldName}`;
+  deleteField(fieldId: string): Observable<Field> {
+    const url = `${this.serviceURL}/${fieldId}`;
 
     return this.http.delete<Field>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`deleted field name=${fieldName}`)),
+      tap(_ => this.log(`deleted field id=${fieldId}`)),
       catchError(this.handleError<Field>('deleteField'))
     );
   }
