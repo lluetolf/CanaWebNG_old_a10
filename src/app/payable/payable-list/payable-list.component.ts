@@ -12,9 +12,7 @@ export class PayableListComponent implements OnInit {
   rawPayables: Payable[] = []
   selectedDay = new Date()
   daysOfWeek: Date[]
-
-  displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldId', 'actions'];
-
+  
   constructor(private service: PayablesService) { }
 
   ngOnInit() {

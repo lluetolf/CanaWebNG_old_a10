@@ -1,1 +1,43 @@
-<p>create-payable-dialog works!</p>
+<h1 mat-dialog-title>Add Payable</h1>
+
+<div mat-dialog-content>
+    <div class="example-container">
+        <mat-form-field>
+            <input matInput placeholder="Field" [(ngModel)]="payable.fieldName" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Category" [(ngModel)]="payable.category" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="SubCategory" [(ngModel)]="payable.subCategory" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="DocumentId" [(ngModel)]="payable.documentId"  type="number">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="PricePerUnit" [(ngModel)]="payable.pricePerUnit"  type="number">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Quantity" [(ngModel)]="payable.quantity"  type="number">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="TransactionDate" [ngModel]="payable.transactionDate" readonly>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Comment" [(ngModel)]="payable.comment" required>
+        </mat-form-field>
+
+    </div>           
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="dismiss()">Cancel</button>
+  <button mat-button cdkFocusInitial (click)="save()">Create</button>
+</div>

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Payable } from '@app/models';
 import { MatTableDataSource } from '@angular/material/table';
+import { CreatePayableDialogComponent } from '../create-payable-dialog/create-payable-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-payable-list-item',
@@ -12,7 +14,7 @@ export class PayableListItemComponent implements OnInit {
   @Input() day: Date
   public _payables: Payable[] = []
   public payableTable = new MatTableDataSource<Payable>();
-  displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldId', 'actions'];
+  displayedColumns: string[] = ['category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldName', 'actions'];
 
   @Input('payables')
   set payables(value: Payable[]) {
@@ -25,7 +27,7 @@ export class PayableListItemComponent implements OnInit {
     return this._payables
   }
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -43,14 +45,16 @@ export class PayableListItemComponent implements OnInit {
      }
   
     openCreateDialog(): void {
-      // const dialogRef = this.dialog.open(CreateFieldDialogComponent, {
-      //   width: '600px'
-      // });
-  
-      // dialogRef.afterClosed().subscribe(result => {
-      //   this.getFields();
-      //   console.log('The dialog was closed');
-      // });
+      const dialogRef = this.dialog.open(CreatePayableDialogComponent, {
+        width: '600px',
+        data: this.day
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.payables.push(result);
+        this.payableTable._updateChangeSubscription();
+        console.log('The dialog was closed');
+      });
     }
 
 }
