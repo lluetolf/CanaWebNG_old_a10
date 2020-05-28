@@ -1,5 +1,5 @@
 export class Payable {
-    public fieldName: string
+    public fieldId: string
     public category: string
     public subCategory: string
     public documentId: number
