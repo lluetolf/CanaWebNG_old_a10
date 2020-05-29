@@ -32,6 +32,9 @@ export class PayableListItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openDeleteDialog(payable: Payable): void {
+  }
+
   openEditDialog(payable: Payable): void {
     //   const dialogRef = this.dialog.open(EditFieldDialogComponent, {
     //     width: '600px',
@@ -51,9 +54,13 @@ export class PayableListItemComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        this.payables.push(result);
-        this.payableTable._updateChangeSubscription();
-        console.log('The dialog was closed');
+        if(result) {
+          this.payables.push(result);
+          this.payableTable._updateChangeSubscription();
+          console.log('The dialog was closed and payable created');
+        } else {
+          console.log('Error creating payable.');
+        }
       });
     }
 

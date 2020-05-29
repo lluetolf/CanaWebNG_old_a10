@@ -1,5 +1,10 @@
 <p>Dashboard!</p>
 <h3>Last 5 payables</h3>
-<div *ngFor="let p of latestPayables" class="module ">
-    <pre>{{p | json}}</pre>
-</div>
+<ul>
+    <li *ngFor="let p of latestPayables">
+        <a [routerLink]="['/payableList', p.transactionDate]">
+            {{p.transactionDate |date:'dd.MM.yyyy'}} {{p.category }} {{ p.subCategory}} 
+        </a>
+    </li>
+</ul>
+

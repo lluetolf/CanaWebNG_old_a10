@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'payableList', component: PayableListComponent, canActivate: [AuthGuard] },
+  { path: 'payableList/:day', component: PayableListComponent, canActivate: [AuthGuard] },
   { path: 'receivableList', component: FieldListComponent, canActivate: [AuthGuard] },
   { path: 'fieldList', component: FieldListComponent, canActivate: [AuthGuard] },
   { path: 'contact', component: FieldListComponent, canActivate: [AuthGuard]  },

@@ -11,6 +11,7 @@ import { Field } from '@app/models'
 })
 export class FieldsService {
   private serviceURL = environment.apiBaseUri + 'field';
+  readonly  allFieldsInMemory: Field[] = []
 
   constructor(
     private http: HttpClient) { }
@@ -21,6 +22,18 @@ export class FieldsService {
 
   /* Get all Fields from the server */
   getFields(): Observable<Field[]> {
+    this.log("Check cache for fields")
+    if(this.allFieldsInMemory.length > 0) {
+      this.log("Returning results from cache.")
+      return of(this.allFieldsInMemory)
+    } else {
+      return this.getFieldsFromServer()
+    } 
+  }
+
+
+  /* Get all Fields from the server */
+  getFieldsFromServer(): Observable<Field[]> {
     this.log("Fetching all fields.")
     return this.http.get<Field[]>(this.serviceURL)
       .pipe(
@@ -29,6 +42,7 @@ export class FieldsService {
             f.acquisitionDate = new Date(f.acquisitionDate + 'Z');
             f.lastUpdated = new Date(f.lastUpdated + 'Z');
           });
+          this.allFieldsInMemory.push(...fields)
           return fields}),
         tap(_ => this.log('fetched all fields')),
         catchError(this.handleError<Field[]>('getFields', []))
@@ -55,7 +69,6 @@ export class FieldsService {
 
   /** PUT: update the field on the server */
   updateField(field: Field): Observable<any> {
-
     return this.http.patch(this.serviceURL, field, this.httpOptions).pipe(
       tap(_ => this.log(`updated field name=${field.name}`)),
       catchError(this.handleError<any>('updateField'))
@@ -67,8 +80,12 @@ export class FieldsService {
   addField(field: Field): Observable<Field> {
     // hack, we are only interested in the date, so setting it to 12 to avoid timezone problems
     field.acquisitionDate.setHours(12) 
-    return this.http.post<Field>(this.serviceURL, field, this.httpOptions).pipe(
-      tap((newField: Field) => this.log(`added field w/ name=${newField.name}`)),
+    return this.http.post<Field>(this.serviceURL, field, this.httpOptions)
+    .pipe(
+      tap((newField: Field) => {
+        this.log(`added field w/ name=${newField.name}`)
+        this.allFieldsInMemory.push(newField)
+      }),
       catchError(this.handleError<Field>('addField'))
     );
   }

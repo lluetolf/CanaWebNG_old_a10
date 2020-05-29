@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { PayablesService } from '@app/services';
-import { Payable } from '@app/models';
+import { PayablesService, FieldsService } from '@app/services';
+import { Payable, Field } from '@app/models';
 
 @Component({
   selector: 'app-create-payable-dialog',
@@ -11,15 +11,20 @@ import { Payable } from '@app/models';
 })
 export class CreatePayableDialogComponent implements OnInit {
   payable: Payable
+  fields: Field[]
 
   constructor(
     public dialogRef: MatDialogRef<CreatePayableDialogComponent>,
       @Inject(MAT_DIALOG_DATA) public data: Date,
-      private payableService: PayablesService) {}
+      private payableService: PayablesService,
+      private fieldService: FieldsService) {}
 
   ngOnInit() {
     this.payable = new Payable();
     this.payable.transactionDate = this.data
+    this.fieldService.getFields().subscribe( fields => {
+      this.fields = fields
+    })
     console.log('Sent to CreateFieldDialogComponent: ');
   }
 

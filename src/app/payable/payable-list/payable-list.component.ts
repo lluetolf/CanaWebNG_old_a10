@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Payable } from '@app/models';
 import { PayablesService } from '@app/services';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-payable-list',
@@ -12,10 +13,13 @@ export class PayableListComponent implements OnInit {
   rawPayables: Payable[] = []
   selectedDay = new Date()
   daysOfWeek: Date[]
+  payablesAreLoading: boolean = true
   
-  constructor(private service: PayablesService) { }
+  constructor(private route: ActivatedRoute, private service: PayablesService) { }
 
   ngOnInit() {
+    let tmpDay = this.route.snapshot.paramMap.get('day');
+    this.selectedDay = new Date(tmpDay)
     this.changeSelectedDate()
   }
 
@@ -42,6 +46,7 @@ export class PayableListComponent implements OnInit {
 
   public changeSelectedDate(): void {
     console.log(this.selectedDay)
+    this.payablesAreLoading = true
     this.service.getPayablesOfWeek(this.selectedDay)
       .subscribe(payables => {
         this.rawPayables = payables;
@@ -58,6 +63,7 @@ export class PayableListComponent implements OnInit {
           day.setDate(day.getDate() + 1)
         } 
         this.daysOfWeek = tmp
+        this.payablesAreLoading = false
       });
   }
 
