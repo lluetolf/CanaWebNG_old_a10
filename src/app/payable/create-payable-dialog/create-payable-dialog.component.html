@@ -4,15 +4,11 @@
     <div class="example-container">
         <mat-form-field>
             <mat-label>Field</mat-label>
-            <mat-select>
+            <mat-select [(value)]="payable.fieldName" name="f" required>
                 <mat-option *ngFor="let f of fields" [value]="f.name">
                 {{f.name}}
                 </mat-option>
             </mat-select>
-        </mat-form-field>
-
-        <mat-form-field>
-            <input matInput placeholder="Field" [(ngModel)]="payable.fieldName" required>
         </mat-form-field>
 
         <mat-form-field>
