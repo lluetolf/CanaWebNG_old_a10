@@ -12,6 +12,18 @@
         </mat-form-field>
 
         <mat-form-field>
+            <mat-label>Provider</mat-label>
+            <mat-select [(value)]="payable.provider" required>
+                <mat-option value="Fertiquisa">Fertiquisa</mat-option>
+                <mat-option value="Agros de la cuenca">Agros de la cuenca</mat-option>
+                <mat-option value="Servicios Agropecuarios">Servicios Agropecuarios</mat-option>
+                <mat-option value="Tractorista">Tractorista</mat-option>
+                <mat-option value="Tienda conveniencia">Tienda conveniencia</mat-option>
+                <mat-option value="Gasolinera">Gasolinera</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
             <mat-label>Category</mat-label>
             <mat-select #cat [(ngModel)]="payable.category" name="f" (change)="changeCategory()" required>
                 <mat-option *ngFor="let c of categories" [value]="c.category">
@@ -30,7 +42,7 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="DocumentId" [(ngModel)]="payable.documentId"  type="number" required>
+            <input matInput placeholder="DocumentId" [(ngModel)]="payable.documentId" required>
         </mat-form-field>
 
         <mat-form-field>
@@ -46,7 +58,7 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="Comment" [(ngModel)]="payable.comment" required>
+            <input matInput placeholder="Comment" [(ngModel)]="payable.comment">
         </mat-form-field>
 
     </div>           

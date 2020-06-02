@@ -8,6 +8,12 @@
         </mat-panel-description>
     </mat-expansion-panel-header>
     <table mat-table [dataSource]="payableTable" class="mat-elevation-z8">
+        <ng-container matColumnDef="provider">
+            <th mat-header-cell *matHeaderCellDef> Provider </th>
+            <td mat-cell *matCellDef="let element"> {{element.provider}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
         <ng-container matColumnDef="category">
             <th mat-header-cell *matHeaderCellDef> Category </th>
             <td mat-cell *matCellDef="let element"> {{element.category}} </td>

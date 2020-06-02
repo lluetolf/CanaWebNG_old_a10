@@ -1,8 +1,9 @@
 export class Payable {
     public fieldName: string
+    public provider: string
     public category: string
     public subCategory: string
-    public documentId: number
+    public documentId: string
     public pricePerUnit: number
     public quantity: number
     public comment: string

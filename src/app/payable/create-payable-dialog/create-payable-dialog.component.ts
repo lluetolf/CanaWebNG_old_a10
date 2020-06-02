@@ -24,7 +24,7 @@ export class CreatePayableDialogComponent implements OnInit {
       private fieldService: FieldsService) {}
 
   ngOnInit() {
-    this.payable = new Payable({'quantity': 1, 'documentId': -1, 'transactionDate': this.data});
+    this.payable = new Payable({'quantity': 1, 'documentId': "N/A", 'transactionDate': this.data});
 
     this.categories = this.payableService.categories
     this.fieldService.getFields().subscribe( fields => {
