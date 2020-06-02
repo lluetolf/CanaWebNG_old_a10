@@ -19,7 +19,7 @@ export class PayableListComponent implements OnInit {
 
   ngOnInit() {
     let tmpDay = this.route.snapshot.paramMap.get('day');
-    this.selectedDay = new Date(tmpDay)
+    this.selectedDay = tmpDay ? new Date(tmpDay) : new Date()
     this.changeSelectedDate()
   }
 
