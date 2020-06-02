@@ -8,6 +8,7 @@ import { PayableListItemComponent } from './payable-list-item/payable-list-item.
 import { MaterialModule } from '@app/shared/material.module';
 import { CreatePayableDialogComponent } from './create-payable-dialog/create-payable-dialog.component';
 import { EditPayableDialogComponent } from './edit-payable-dialog/edit-payable-dialog.component';
+import { SubcategoryPipe } from './subcategory.pipe';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { EditPayableDialogComponent } from './edit-payable-dialog/edit-payable-d
     PayableListComponent,
     PayableListItemComponent,
     CreatePayableDialogComponent,
-    EditPayableDialogComponent],
+    EditPayableDialogComponent,
+    SubcategoryPipe],
   imports: [
     CommonModule,
     FormsModule,

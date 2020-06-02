@@ -13,6 +13,10 @@ export class CreatePayableDialogComponent implements OnInit {
   payable: Payable
   fields: Field[]
 
+  selectedCategory
+  categories: Array<any>
+  subCategories: Array<any>
+
   constructor(
     public dialogRef: MatDialogRef<CreatePayableDialogComponent>,
       @Inject(MAT_DIALOG_DATA) public data: Date,
@@ -20,12 +24,19 @@ export class CreatePayableDialogComponent implements OnInit {
       private fieldService: FieldsService) {}
 
   ngOnInit() {
-    this.payable = new Payable();
+    this.payable = new Payable({'quantity': 1, 'documentId': -1});
     this.payable.transactionDate = this.data
+
+    this.categories = this.payableService.categories
     this.fieldService.getFields().subscribe( fields => {
       this.fields = fields
     })
     console.log('Sent to CreateFieldDialogComponent: ');
+  }
+
+  changeCategory() {
+    console.log(`selectedCategory: ${this.selectedCategory}`);
+    
   }
 
   save() {

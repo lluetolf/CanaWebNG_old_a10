@@ -4,7 +4,7 @@
     <div class="example-container">
         <mat-form-field>
             <mat-label>Field</mat-label>
-            <mat-select [(value)]="payable.fieldName" name="f" required>
+            <mat-select [(value)]="payable.fieldName" required>
                 <mat-option *ngFor="let f of fields" [value]="f.name">
                 {{f.name}}
                 </mat-option>
@@ -12,23 +12,33 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="Category" [(ngModel)]="payable.category" required>
+            <mat-label>Category</mat-label>
+            <mat-select #cat [(ngModel)]="payable.category" name="f" (change)="changeCategory()" required>
+                <mat-option *ngFor="let c of categories" [value]="c.category">
+                {{c.category}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="SubCategory" [(ngModel)]="payable.subCategory" required>
+            <mat-label>Category</mat-label>
+            <mat-select [(ngModel)]="payable.subCategory" required>
+                <mat-option *ngFor="let c of categories |subcategory:payable.category" [value]="c">
+                {{c}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="DocumentId" [(ngModel)]="payable.documentId"  type="number">
+            <input matInput placeholder="DocumentId" [(ngModel)]="payable.documentId"  type="number" required>
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="PricePerUnit" [(ngModel)]="payable.pricePerUnit"  type="number">
+            <input matInput placeholder="PricePerUnit" [(ngModel)]="payable.pricePerUnit"  type="number" required>
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="Quantity" [(ngModel)]="payable.quantity"  type="number">
+            <input matInput placeholder="Quantity" [(ngModel)]="payable.quantity"  type="number" required>
         </mat-form-field>
 
         <mat-form-field>
