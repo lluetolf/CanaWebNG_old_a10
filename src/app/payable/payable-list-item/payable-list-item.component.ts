@@ -36,21 +36,25 @@ export class PayableListItemComponent implements OnInit {
   }
 
   openEditDialog(payable: Payable): void {
-    //   const dialogRef = this.dialog.open(EditFieldDialogComponent, {
-    //     width: '600px',
-    //     data: field
-    //   });
-  
-    //   dialogRef.afterClosed().subscribe(result => {
-    //     console.log('The dialog was closed');
-  
-    //   });
-     }
+    const dialogRef = this.dialog.open(CreatePayableDialogComponent, {
+      width: '600px',
+      data: payable
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.payableTable._updateChangeSubscription();
+        console.log('The dialog was closed and payable updated');
+      } else {
+        console.log('Error updating payable.');
+      }
+    });
+  }
   
     openCreateDialog(): void {
       const dialogRef = this.dialog.open(CreatePayableDialogComponent, {
         width: '600px',
-        data: this.day
+        data: new Payable({'transactionDate': this.day, 'quantity': 1, 'documentId': "N/A", })
       });
 
       dialogRef.afterClosed().subscribe(result => {

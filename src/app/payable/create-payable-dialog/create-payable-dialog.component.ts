@@ -12,7 +12,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 })
 export class CreatePayableDialogComponent implements OnInit {
   public readonly payableFormGroup: FormGroup
-
+  isEdit: boolean = false
   payable: Payable
   fields: Field[]
 
@@ -22,7 +22,7 @@ export class CreatePayableDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreatePayableDialogComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: Date,
+      @Inject(MAT_DIALOG_DATA) public data: Payable,
       private payableService: PayablesService,
       private fieldService: FieldsService,
       private formBuilder: FormBuilder) {
@@ -41,7 +41,12 @@ export class CreatePayableDialogComponent implements OnInit {
       }
 
   ngOnInit() {
-    this.payable = new Payable({'quantity': 1, 'documentId': "N/A", 'transactionDate': this.data});
+    this.payable = this.data;
+    if (this.payable._id === undefined){
+      this.isEdit = false
+    } else {
+      this.isEdit = true
+    }
     this.payableFormGroup.patchValue(this.payable)
     this.categories = this.payableService.categories
     this.fieldService.getFields().subscribe( fields => {
@@ -51,12 +56,23 @@ export class CreatePayableDialogComponent implements OnInit {
   }
 
   save(post) {
+    let payable_id = this.payable._id
     this.payable = new Payable(post)
-    this.payableService.addPayable(this.payable).subscribe(
-      payable => {
-      console.log('Create:' + payable)
-      this.dialogRef.close(payable)
-    });
+    if(this.isEdit){
+      this.payable._id = payable_id
+      this.payableService.updatePayable(this.payable).subscribe(
+        payable => {
+        console.log('Updated:' + payable)
+        this.dialogRef.close(payable)
+      });
+    } else {
+      this.payableService.addPayable(this.payable).subscribe(
+        payable => {
+        console.log('Create:' + payable)
+        this.dialogRef.close(payable)
+      });
+    }
+
   }
 
   dismiss() {

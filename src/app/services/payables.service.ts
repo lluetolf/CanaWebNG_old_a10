@@ -100,6 +100,18 @@ export class PayablesService {
     );
   }
 
+  /** POST: add a new field to the server */
+  updatePayable(payable: Payable): Observable<Payable> {
+    // hack, we are only interested in the date, so setting it to 12 to avoid timezone problems
+    payable.transactionDate.setHours(12) 
+    return this.http.patch<Payable>(this.serviceURL, payable, this.httpOptions).pipe(
+      tap((newPayable: Payable) => this.log(`updated payable w/ id=${newPayable._id}`)),
+      catchError(this.handleError<Payable>('addPayable'))
+    );
+  }
+
+  
+
   private getMonday(date: Date) {
       var d = new Date(date)
       var day = d.getDay() || 7

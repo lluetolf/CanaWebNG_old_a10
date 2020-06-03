@@ -7,7 +7,6 @@ import { PayableListItemComponent } from './payable-list-item/payable-list-item.
 
 import { MaterialModule } from '@app/shared/material.module';
 import { CreatePayableDialogComponent } from './create-payable-dialog/create-payable-dialog.component';
-import { EditPayableDialogComponent } from './edit-payable-dialog/edit-payable-dialog.component';
 import { SubcategoryPipe } from './subcategory.pipe';
 
 
@@ -16,7 +15,6 @@ import { SubcategoryPipe } from './subcategory.pipe';
     PayableListComponent,
     PayableListItemComponent,
     CreatePayableDialogComponent,
-    EditPayableDialogComponent,
     SubcategoryPipe],
   imports: [
     CommonModule,
