@@ -14,17 +14,17 @@ export class PayablesService {
   private serviceURL = environment.apiBaseUri + 'payable';
 
   readonly categories: Array<any> = [
-    { 'category': "Herramienta", subCategories:  ["", "Turbo/Jade","Motosierra", "Tritor", "Herbicol", "Pronamex", "Yunta", "Urea"] },
-    { 'category': "Descanso", subCategories: [""] },
-    { 'category': "MO Dia", subCategories: ["", "Corte", "Fertilizar", "Quema"] },
-    { 'category': "MO Vespertina", subCategories: ["", "Corte", "Fertilizar", "Quema"] },
-    { 'category': "MO Matutina", subCategories: ["", "Corte", "Fertilizar", "Quema"] },
-    { 'category': "Tractor", subCategories: ["", "Tapada", "Rastra", "Surco", "Acareo"] },
-    { 'category': "Tambos", subCategories: ["", "Herbicol", "Pronamex"] },
-    { 'category': "Sacos", subCategories: ["", "Herbicol", "Pronamex"] },
-    { 'category': "Tanques", subCategories: [""] },
-    { 'category': "Propina", subCategories: [""] },
-    { 'category': "Otro", subCategories: [""] }
+    { 'category': "Herramienta", subCategories:  ["Turbo/Jade","Motosierra", "Tritor", "Herbicol", "Pronamex", "Yunta", "Urea", "Otro"] },
+    { 'category': "Descanso", subCategories: ["N/A"] },
+    { 'category': "MO Dia", subCategories: ["Corte", "Fertilizar", "Quema", "Otro"] },
+    { 'category': "MO Vespertina", subCategories: ["Corte", "Fertilizar", "Quema", "Otro"] },
+    { 'category': "MO Matutina", subCategories: ["Corte", "Fertilizar", "Quema", "Otro"] },
+    { 'category': "Tractor", subCategories: ["Tapada", "Rastra", "Surco", "Acareo", "Otro"] },
+    { 'category': "Tambos", subCategories: ["Herbicol", "Pronamex", "Otro"] },
+    { 'category': "Sacos", subCategories: ["Herbicol", "Pronamex", "Otro"] },
+    { 'category': "Tanques", subCategories: ["N/A"] },
+    { 'category': "Propina", subCategories: ["N/A"] },
+    { 'category': "Otro", subCategories: ["N/A"] }
   ]
 
   constructor(

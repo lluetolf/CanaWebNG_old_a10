@@ -13,14 +13,12 @@ import { AuthGuard } from '@app/helpers';
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'version', component: VersionPageComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'payableList', component: PayableListComponent, canActivate: [AuthGuard] },
   { path: 'payableList/:day', component: PayableListComponent, canActivate: [AuthGuard] },
   { path: 'receivableList', component: FieldListComponent, canActivate: [AuthGuard] },
   { path: 'fieldList', component: FieldListComponent, canActivate: [AuthGuard] },
-  { path: 'contact', component: FieldListComponent, canActivate: [AuthGuard]  },
-  { path: 'version', component: VersionPageComponent }
-
 ];
 
 @NgModule({
