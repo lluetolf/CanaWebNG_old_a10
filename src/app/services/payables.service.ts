@@ -106,7 +106,15 @@ export class PayablesService {
     payable.transactionDate.setHours(12) 
     return this.http.patch<Payable>(this.serviceURL, payable, this.httpOptions).pipe(
       tap((newPayable: Payable) => this.log(`updated payable w/ id=${newPayable._id}`)),
-      catchError(this.handleError<Payable>('addPayable'))
+      catchError(this.handleError<Payable>('updatePayable'))
+    );
+  }
+
+  deletePayable(payableId: string): Observable<String> {
+    let url = `${this.serviceURL}/${payableId}`
+    return this.http.delete<String>(url, this.httpOptions).pipe(
+      tap((msg: String) => this.log(`delete payable w/ id=${payableId}`)),
+      catchError(this.handleError<String>('deletePayable'))
     );
   }
 

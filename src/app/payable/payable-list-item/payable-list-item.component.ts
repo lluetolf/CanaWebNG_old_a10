@@ -3,6 +3,8 @@ import { Payable } from '@app/models';
 import { MatTableDataSource } from '@angular/material/table';
 import { CreatePayableDialogComponent } from '../create-payable-dialog/create-payable-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '@app/shared/confirmation-dialog/confirmation-dialog.component';
+import { PayablesService } from '@app/services';
 
 @Component({
   selector: 'app-payable-list-item',
@@ -27,12 +29,28 @@ export class PayableListItemComponent implements OnInit {
     return this._payables
   }
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private payableService: PayablesService) { }
 
   ngOnInit(): void {
   }
 
   openDeleteDialog(payable: Payable): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: "Do you want to delete the payable?"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        console.log(`Delete payable with id: ${payable._id}`)
+        this.payableService.deletePayable(payable._id).subscribe(result => {
+          console.log(result)
+          this.payables.splice(this.payables.findIndex(e => e._id === payable._id), 1)
+          this.payableTable._updateChangeSubscription();
+        })
+        
+      }
+    });
   }
 
   openEditDialog(payable: Payable): void {

@@ -19,6 +19,7 @@ import { PayablesModule } from './payable/payables.module';
 import { LoginComponent } from './login/login.component';
 
 import { JwtInterceptor, ErrorInterceptor } from '@app/helpers';
+import { ConfirmationDialogComponent } from '@app/shared/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { JwtInterceptor, ErrorInterceptor } from '@app/helpers';
     VersionPageComponent,
     PageNotFoundComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     MaterialModule,
