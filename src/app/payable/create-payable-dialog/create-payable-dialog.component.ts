@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PayablesService, FieldsService } from '@app/services';
 import { Payable, Field } from '@app/models';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { formatDate } from '@angular/common';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-payable-dialog',
@@ -48,6 +50,7 @@ export class CreatePayableDialogComponent implements OnInit {
       this.isEdit = true
     }
     this.payableFormGroup.patchValue(this.payable)
+    this.payableFormGroup.get('transactionDate').setValue(formatDate(this.payable.transactionDate, 'dd.MM.yyyy', 'en'))
     this.categories = this.payableService.categories
     this.fieldService.getFields().subscribe( fields => {
       this.fields = fields
@@ -58,6 +61,7 @@ export class CreatePayableDialogComponent implements OnInit {
   save(post) {
     let payable_id = this.payable._id
     this.payable = new Payable(post)
+    this.payable.transactionDate = moment(this.payable.transactionDate, "DD.MM.YYYY").toDate()
     if(this.isEdit){
       this.payable._id = payable_id
       this.payableService.updatePayable(this.payable).subscribe(

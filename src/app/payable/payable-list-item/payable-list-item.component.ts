@@ -43,6 +43,7 @@ export class PayableListItemComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
+        Object.assign(payable, result)
         this.payableTable._updateChangeSubscription();
         console.log('The dialog was closed and payable updated');
       } else {
