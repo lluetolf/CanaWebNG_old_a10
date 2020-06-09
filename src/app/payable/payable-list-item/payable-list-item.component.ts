@@ -14,7 +14,7 @@ export class PayableListItemComponent implements OnInit {
   @Input() day: Date
   public _payables: Payable[] = []
   public payableTable = new MatTableDataSource<Payable>();
-  displayedColumns: string[] = ['provider','category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldName', 'actions'];
+  displayedColumns: string[] = ['provider', 'category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldName', 'actions'];
 
   @Input('payables')
   set payables(value: Payable[]) {
@@ -42,7 +42,7 @@ export class PayableListItemComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         Object.assign(payable, result)
         this.payableTable._updateChangeSubscription();
         console.log('The dialog was closed and payable updated');
@@ -51,22 +51,22 @@ export class PayableListItemComponent implements OnInit {
       }
     });
   }
-  
-    openCreateDialog(): void {
-      const dialogRef = this.dialog.open(CreatePayableDialogComponent, {
-        width: '600px',
-        data: new Payable({'transactionDate': this.day, 'quantity': 1, 'documentId': "N/A", })
-      });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if(result) {
-          this.payables.push(result);
-          this.payableTable._updateChangeSubscription();
-          console.log('The dialog was closed and payable created');
-        } else {
-          console.log('Error creating payable.');
-        }
-      });
-    }
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(CreatePayableDialogComponent, {
+      width: '600px',
+      data: new Payable({ 'transactionDate': this.day, 'quantity': 1, 'documentId': "N/A", })
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.payables.push(result);
+        this.payableTable._updateChangeSubscription();
+        console.log('The dialog was closed and payable created');
+      } else {
+        console.log('Error creating payable.');
+      }
+    });
+  }
 
 }

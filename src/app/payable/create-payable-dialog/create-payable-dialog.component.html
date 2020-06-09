@@ -1,78 +1,79 @@
 <h1 mat-dialog-title>Add Payable</h1>
 
 <form [formGroup]="payableFormGroup" (ngSubmit)="save(payableFormGroup.value)" class="form">
-<div mat-dialog-content>
-    <div class="example-container">
-        <mat-form-field>
-            <mat-label>Field</mat-label>
-            <mat-select formControlName="fieldName" required>
-                <mat-option *ngFor="let f of fields" [value]="f.name">
-                {{f.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+    <div mat-dialog-content>
+        <div class="example-container">
+            <mat-form-field>
+                <mat-label>Field</mat-label>
+                <mat-select formControlName="fieldName" required>
+                    <mat-option *ngFor="let f of fields" [value]="f.name">
+                        {{f.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Provider</mat-label>
-            <mat-select formControlName="provider" required>
-                <mat-option value="Fertiquisa">Fertiquisa</mat-option>
-                <mat-option value="Agros de la cuenca">Agros de la cuenca</mat-option>
-                <mat-option value="Servicios Agropecuarios">Servicios Agropecuarios</mat-option>
-                <mat-option value="Tractorista">Tractorista</mat-option>
-                <mat-option value="Tienda conveniencia">Tienda conveniencia</mat-option>
-                <mat-option value="Gasolinera">Gasolinera</mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field>
+                <mat-label>Provider</mat-label>
+                <mat-select formControlName="provider" required>
+                    <mat-option value="Fertiquisa">Fertiquisa</mat-option>
+                    <mat-option value="Agros de la cuenca">Agros de la cuenca</mat-option>
+                    <mat-option value="Servicios Agropecuarios">Servicios Agropecuarios</mat-option>
+                    <mat-option value="Tractorista">Tractorista</mat-option>
+                    <mat-option value="Tienda conveniencia">Tienda conveniencia</mat-option>
+                    <mat-option value="Gasolinera">Gasolinera</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Category</mat-label>
-            <mat-select formControlName="category" required>
-                <mat-option *ngFor="let c of categories" [value]="c.category">
-                {{c.category}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field>
+                <mat-label>Category</mat-label>
+                <mat-select formControlName="category" required>
+                    <mat-option *ngFor="let c of categories" [value]="c.category">
+                        {{c.category}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Sub-Category</mat-label>
-            <mat-select formControlName="subCategory" required>
-                <mat-option *ngFor="let c of categories |subcategory:payableFormGroup.get('category').value" [value]="c">
-                {{c}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field>
+                <mat-label>Sub-Category</mat-label>
+                <mat-select formControlName="subCategory" required>
+                    <mat-option *ngFor="let c of categories |subcategory:payableFormGroup.get('category').value"
+                        [value]="c">
+                        {{c}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="DocumentId" formControlName="documentId" type="text" required>
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="DocumentId" formControlName="documentId" type="text" required>
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="PricePerUnit" formControlName="pricePerUnit"  type="number" required>
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="PricePerUnit" formControlName="pricePerUnit" type="number" required>
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="Quantity" formControlName="quantity"  type="number" required>
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Quantity" formControlName="quantity" type="number" required>
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="TransactionDate" formControlName="transactionDate" readonly>
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="TransactionDate" formControlName="transactionDate" readonly>
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="Comment" formControlName="comment">
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Comment" formControlName="comment">
+            </mat-form-field>
 
-    </div>    
-</div>
-<p>
-    Form Status: {{ payableFormGroup.status }}
-</p>
-    
-<div mat-dialog-actions>
-    <button mat-button (click)="dismiss()" type="button">Cancel</button>
-    <button mat-raised-button *ngIf="!isEdit" color="primary" type="submit" class="button" 
-    [disabled]="!payableFormGroup.valid">Create</button>
-    <button mat-raised-button *ngIf="isEdit" color="primary" type="submit" class="button" 
-    [disabled]="!payableFormGroup.valid">Update</button>
-</div>
-</form>      
+        </div>
+    </div>
+    <p>
+        Form Status: {{ payableFormGroup.status }}
+    </p>
+
+    <div mat-dialog-actions>
+        <button mat-button (click)="dismiss()" type="button">Cancel</button>
+        <button mat-raised-button *ngIf="!isEdit" color="primary" type="submit" class="button"
+            [disabled]="!payableFormGroup.valid">Create</button>
+        <button mat-raised-button *ngIf="isEdit" color="primary" type="submit" class="button"
+            [disabled]="!payableFormGroup.valid">Update</button>
+    </div>
+</form>

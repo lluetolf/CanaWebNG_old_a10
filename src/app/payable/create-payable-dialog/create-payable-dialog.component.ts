@@ -24,27 +24,27 @@ export class CreatePayableDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreatePayableDialogComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: Payable,
-      private payableService: PayablesService,
-      private fieldService: FieldsService,
-      private formBuilder: FormBuilder) {
-        this.payableFormGroup = this.formBuilder.group({
-          fieldName: ['', Validators.required],
-          provider: ['', Validators.required],
-          category: ['', Validators.required],
-          subCategory: [''],
-          documentId: [''],
-          pricePerUnit: ['', Validators.required],
-          quantity: ['', Validators.required],
-          transactionDate: ['', Validators.required],
-          comment: [''],
-        })
+    @Inject(MAT_DIALOG_DATA) public data: Payable,
+    private payableService: PayablesService,
+    private fieldService: FieldsService,
+    private formBuilder: FormBuilder) {
+    this.payableFormGroup = this.formBuilder.group({
+      fieldName: ['', Validators.required],
+      provider: ['', Validators.required],
+      category: ['', Validators.required],
+      subCategory: [''],
+      documentId: [''],
+      pricePerUnit: ['', Validators.required],
+      quantity: ['', Validators.required],
+      transactionDate: ['', Validators.required],
+      comment: [''],
+    })
 
-      }
+  }
 
   ngOnInit() {
     this.payable = this.data;
-    if (this.payable._id === undefined){
+    if (this.payable._id === undefined) {
       this.isEdit = false
     } else {
       this.isEdit = true
@@ -52,7 +52,7 @@ export class CreatePayableDialogComponent implements OnInit {
     this.payableFormGroup.patchValue(this.payable)
     this.payableFormGroup.get('transactionDate').setValue(formatDate(this.payable.transactionDate, 'dd.MM.yyyy', 'en'))
     this.categories = this.payableService.categories
-    this.fieldService.getFields().subscribe( fields => {
+    this.fieldService.getFields().subscribe(fields => {
       this.fields = fields
     })
     console.log('Sent to CreateFieldDialogComponent: ');
@@ -62,19 +62,19 @@ export class CreatePayableDialogComponent implements OnInit {
     let payable_id = this.payable._id
     this.payable = new Payable(post)
     this.payable.transactionDate = moment(this.payable.transactionDate, "DD.MM.YYYY").toDate()
-    if(this.isEdit){
+    if (this.isEdit) {
       this.payable._id = payable_id
       this.payableService.updatePayable(this.payable).subscribe(
         payable => {
-        console.log('Updated:' + payable)
-        this.dialogRef.close(payable)
-      });
+          console.log('Updated:' + payable)
+          this.dialogRef.close(payable)
+        });
     } else {
       this.payableService.addPayable(this.payable).subscribe(
         payable => {
-        console.log('Create:' + payable)
-        this.dialogRef.close(payable)
-      });
+          console.log('Create:' + payable)
+          this.dialogRef.close(payable)
+        });
     }
 
   }
