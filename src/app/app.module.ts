@@ -19,7 +19,7 @@ import { PayablesModule } from './payable/payables.module';
 import { LoginComponent } from './login/login.component';
 
 import { JwtInterceptor, ErrorInterceptor } from '@app/helpers';
-import { ConfirmationDialogComponent } from '@app/shared/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,7 @@ import { ConfirmationDialogComponent } from '@app/shared/confirmation-dialog/con
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
-  entryComponents: [EditFieldDialogComponent, CreateFieldDialogComponent],
+  entryComponents: [EditFieldDialogComponent, CreateFieldDialogComponent, ConfirmationDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
