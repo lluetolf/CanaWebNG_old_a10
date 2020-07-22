@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { first } from 'rxjs/operators'
 
 import { AuthenticationService } from '@app/services'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-login',
@@ -10,18 +11,23 @@ import { AuthenticationService } from '@app/services'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+    public readonly loginFormGroup: FormGroup
     error = ''
-    username: string
-    password: string
     returnUrl: string
-    loading = false;
+    loading = false
 
     constructor(private router: Router, 
         private route: ActivatedRoute,
-        private authenticationService: AuthenticationService  ) { 
+        private formBuilder: FormBuilder,
+        private authenticationService: AuthenticationService) { 
         if (this.authenticationService.currentUserValue) { 
             this.router.navigate(['/dashboard']);
         }
+
+        this.loginFormGroup = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required],
+          })
     }
 
     ngOnInit() {
@@ -29,7 +35,9 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        this.authenticationService.login(this.username, this.password)
+        this.loading = true
+        console.warn(this.loginFormGroup.value);
+        this.authenticationService.login(this.loginFormGroup['username'], this.loginFormGroup['password'])
             .pipe(first())
             .subscribe(
                 data => {
@@ -39,8 +47,9 @@ export class LoginComponent implements OnInit {
                         this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.error = error;
-                    this.loading = false;
+                    this.loginFormGroup.controls.password.setValue('')
+                    this.error = error
+                    this.loading = false
                 });
     }
 }
