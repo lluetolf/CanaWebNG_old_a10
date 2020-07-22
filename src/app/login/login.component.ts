@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     login() {
         this.loading = true
         console.warn(this.loginFormGroup.value);
-        this.authenticationService.login(this.loginFormGroup['username'], this.loginFormGroup['password'])
+        this.authenticationService.login(this.loginFormGroup.get('username').value, this.loginFormGroup.get('password').value)
             .pipe(first())
             .subscribe(
                 data => {
