@@ -2,29 +2,41 @@
   <mat-card-header>
     <mat-card-title>Login</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
-    <form class="example-form" (keyup.enter)="login()">
+  <mat-card-content *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </mat-card-content>
+  <mat-card-content *ngIf="! loading">
+
+    <form class="example-form" (keyup.enter)="login()" (ngSubmit)='login()' [formGroup]="loginFormGroup">
       <table class="example-full-width" cellspacing="0">
         <tr>
           <td>
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+            <mat-form-field>
+              <input matInput placeholder="Username" 
+                formControlName="username" name="username" required>
             </mat-form-field>
           </td>
         </tr>
         <tr>
           <td>
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+            <mat-form-field>
+              <input matInput placeholder="Password" 
+                formControlName="password" type="password" name="password" required>
             </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-card-actions>
+              <button mat-raised-button type="submit" color="primary" [disabled]="loginFormGroup.invalid">Login</button>
+            </mat-card-actions>
+            {{error}}
           </td>
         </tr>
       </table>
     </form>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button (click)="login()" color="primary">Login</button>
-  </mat-card-actions>
+  
   <mat-card-footer>
     
   </mat-card-footer>
