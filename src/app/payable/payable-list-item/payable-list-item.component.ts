@@ -13,20 +13,20 @@ import { PayablesService } from '@app/services';
 })
 export class PayableListItemComponent implements OnInit {
 
-  @Input() day: Date
-  public _payables: Payable[] = []
+  @Input() day: Date;
+  public _payables: Payable[] = [];
   public payableTable = new MatTableDataSource<Payable>();
   displayedColumns: string[] = ['provider', 'category', 'subCategory', 'pricePerUnit', 'quantity', 'transactionDate', 'fieldName', 'actions'];
 
   @Input('payables')
   set payables(value: Payable[]) {
-    this._payables = value
-    this.payableTable.data = value
+    this._payables = value;
+    this.payableTable.data = value;
     this.payableTable._updateChangeSubscription();
   }
 
   get payables(): Payable[] {
-    return this._payables
+    return this._payables;
   }
 
   constructor(public dialog: MatDialog, private payableService: PayablesService) { }
@@ -37,18 +37,18 @@ export class PayableListItemComponent implements OnInit {
   openDeleteDialog(payable: Payable): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
-      data: "Do you want to delete the payable?"
+      data: 'Do you want to delete the payable?'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
-        console.log(`Delete payable with id: ${payable._id}`)
-        this.payableService.deletePayable(payable._id).subscribe(result => {
-          console.log(result)
-          this.payables.splice(this.payables.findIndex(e => e._id === payable._id), 1)
+      if (result) {
+        console.log(`Delete payable with id: ${payable._id}`);
+        this.payableService.deletePayable(payable._id).subscribe(r => {
+          console.log(r);
+          this.payables.splice(this.payables.findIndex(e => e._id === payable._id), 1);
           this.payableTable._updateChangeSubscription();
-        })
-        
+        });
+
       }
     });
   }
@@ -61,7 +61,7 @@ export class PayableListItemComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        Object.assign(payable, result)
+        Object.assign(payable, result);
         this.payableTable._updateChangeSubscription();
         console.log('The dialog was closed and payable updated');
       } else {
@@ -73,7 +73,7 @@ export class PayableListItemComponent implements OnInit {
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreatePayableDialogComponent, {
       width: '600px',
-      data: new Payable({ 'transactionDate': this.day, 'quantity': 1, 'documentId': "N/A", })
+      data: new Payable({ transactionDate: this.day, quantity: 1, documentId: 'N/A', })
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AuthenticationService } from '@app/services'
+import { AuthenticationService } from '@app/services';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,16 +10,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AppComponent {
 
-  constructor(private router: Router, 
-    private route: ActivatedRoute,
-    private authenticationService: AuthenticationService  ) { 
-    if (this.authenticationService.currentUserValue) { 
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private authenticationService: AuthenticationService  ) {
+    if (this.authenticationService.currentUserValue) {
         this.router.navigate(['/']);
     }
 }
 
   logoutUser() {
-    this.authenticationService.logout()
+    this.authenticationService.logout();
     this.router.navigate(['/login']);
   }
 }
