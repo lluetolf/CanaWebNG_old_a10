@@ -22,15 +22,15 @@ export class EditFieldDialogComponent implements OnInit {
 
   ngOnInit() {
     console.log('Sent to Dialog: ', this.data);
-    this.field = this.data
+    this.field = this.data;
     Object.keys(this.field).forEach(key =>
-      console.log(key + " - " + this.field[key] + " - " + typeof this.field[key])
+      console.log(key + ' - ' + this.field[key] + ' - ' + typeof this.field[key])
     );
   }
 
   save() {
     Object.keys(this.field).forEach(key =>
-      console.log(key + " - " + this.field[key] + " - " + typeof this.field[key])
+      console.log(key + ' - ' + this.field[key] + ' - ' + typeof this.field[key])
     );
     this.fieldService.updateField(this.field).subscribe(obs => {
       this.dialogRef.close();

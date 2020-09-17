@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { PayablesService } from '@app/services'
-import { Payable } from '@app/models';
+import {PayablesService} from '@app/services';
+import {Payable} from '@app/models';
 
 @Component({
   selector: 'app-dashboard',

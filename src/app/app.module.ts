@@ -43,9 +43,9 @@ import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confir
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
-    //HttpClientInMemoryWebApiModule.forRoot(
+    // HttpClientInMemoryWebApiModule.forRoot(
     //  InMemoryDataService, { dataEncapsulation: false }
-    //),
+    // ),
 
     PayablesModule
   ],

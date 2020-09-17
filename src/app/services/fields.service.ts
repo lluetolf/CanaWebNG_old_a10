@@ -4,14 +4,14 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { Field } from '@app/models'
+import { Field } from '@app/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FieldsService {
   private serviceURL = environment.apiBaseUri + 'field';
-  readonly  allFieldsInMemory: Field[] = []
+  readonly  allFieldsInMemory: Field[] = [];
 
   constructor(
     private http: HttpClient) { }
@@ -22,19 +22,19 @@ export class FieldsService {
 
   /* Get all Fields from the server */
   getFields(): Observable<Field[]> {
-    this.log("Check cache for fields")
-    if(this.allFieldsInMemory.length > 0) {
-      this.log("Returning results from cache.")
-      return of(this.allFieldsInMemory)
+    this.log('Check cache for fields');
+    if (this.allFieldsInMemory.length > 0) {
+      this.log('Returning results from cache.');
+      return of(this.allFieldsInMemory);
     } else {
-      return this.getFieldsFromServer()
-    } 
+      return this.getFieldsFromServer();
+    }
   }
 
 
   /* Get all Fields from the server */
   getFieldsFromServer(): Observable<Field[]> {
-    this.log("Fetching all fields.")
+    this.log('Fetching all fields.');
     return this.http.get<Field[]>(this.serviceURL)
       .pipe(
         map(fields => {
@@ -42,8 +42,8 @@ export class FieldsService {
             f.acquisitionDate = new Date(f.acquisitionDate + 'Z');
             f.lastUpdated = new Date(f.lastUpdated + 'Z');
           });
-          this.allFieldsInMemory.push(...fields)
-          return fields}),
+          this.allFieldsInMemory.push(...fields);
+          return fields; }),
         tap(_ => this.log('fetched all fields')),
         catchError(this.handleError<Field[]>('getFields', []))
       );
@@ -58,7 +58,7 @@ export class FieldsService {
         map(f => {
             f.acquisitionDate = new Date(f.acquisitionDate + 'Z');
             f.lastUpdated = new Date(f.lastUpdated + 'Z');
-            return f}),
+            return f; }),
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
           this.log(`${outcome} field name=${name}`);
@@ -79,12 +79,12 @@ export class FieldsService {
   /** POST: add a new field to the server */
   addField(field: Field): Observable<Field> {
     // hack, we are only interested in the date, so setting it to 12 to avoid timezone problems
-    field.acquisitionDate.setHours(12) 
+    field.acquisitionDate.setHours(12);
     return this.http.post<Field>(this.serviceURL, field, this.httpOptions)
     .pipe(
       tap((newField: Field) => {
-        this.log(`added field w/ name=${newField.name}`)
-        this.allFieldsInMemory.push(newField)
+        this.log(`added field w/ name=${newField.name}`);
+        this.allFieldsInMemory.push(newField);
       }),
       catchError(this.handleError<Field>('addField'))
     );

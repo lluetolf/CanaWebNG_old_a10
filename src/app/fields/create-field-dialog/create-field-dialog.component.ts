@@ -22,11 +22,11 @@ export class CreateFieldDialogComponent implements OnInit {
   }
 
   save() {
-    this.field.lastUpdated = new Date()
+    this.field.lastUpdated = new Date();
     this.fieldService.addField(this.field).subscribe(field => {
-      console.log('Create:' + field)
+      console.log('Create:' + field);
 
-      this.dialogRef.close()
+      this.dialogRef.close();
     });
   }
 

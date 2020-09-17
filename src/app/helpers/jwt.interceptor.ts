@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 import { AuthenticationService } from '@app/services';
 
-const TOKEN_HEADER_KEY = 'x-access-token'; 
+const TOKEN_HEADER_KEY = 'x-access-token';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -23,7 +23,7 @@ export class JwtInterceptor implements HttpInterceptor {
     const currentUser = this.authenticationService.currentUserValue;
     const isLoggedIn = currentUser && currentUser.token;
     const isApiUrl = request.url.startsWith(environment.apiBaseUri);
-    
+
     if (isLoggedIn && isApiUrl) {
       const headers = new HttpHeaders({
         'x-access-token': currentUser.token,
@@ -32,7 +32,7 @@ export class JwtInterceptor implements HttpInterceptor {
       const cloneReq = request.clone({headers});
       return next.handle(cloneReq);
     }
-    
+
     return next.handle(request);
   }
 }
