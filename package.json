@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "start_heroku": "node server.js",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
@@ -11,8 +12,8 @@
     "heroku-postbuild": "ng build --prod"
   },
   "engines": {
-    "node": "^14.2.0",
-    "npm": "^6.14.8"
+    "node": "14.x",
+    "npm": "6.x"
   },
   "private": true,
   "dependencies": {
