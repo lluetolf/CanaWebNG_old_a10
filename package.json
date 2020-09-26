@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start_heroku": "node server.js",
+    "start_heroku": "nodemon server.js",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
